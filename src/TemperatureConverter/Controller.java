@@ -15,27 +15,44 @@ public class Controller implements Initializable, TemperatureConverter {
     final private String FAHRENHEIT = "Fahrenheit";
     final private String CELSIUS = "Celsius";
     @FXML
-    private TextField textField1;
+    private TextField textField1; // Left textField
     @FXML
-    private TextField textField2; // Right text field
+    private TextField textField2; // Right textField
     @FXML
-    private Text formulaUsed;
+    private Text formulaUsed; // Text showing user the formula
 
     @FXML
-    private ComboBox<String> comboBox;
+    private ComboBox<String> comboBox; // Allows user to select temperature unit
     @FXML
-    private ComboBox<String> comboBox2;
+    private ComboBox<String> comboBox2; // Allows user to select temperature unit
 
+    /**
+     * Converts temperature from Celsius to Fahrenheit
+     * @param value The value to be converted
+     * @return The converted value
+     */
     public double fromCtoF(String value) {
         DecimalFormat numberFormat = new DecimalFormat("#.00");
         return Double.parseDouble(numberFormat.format(Double.parseDouble(value) * 9/5 + 32));
     }
+    /**
+     * Converts temperature from Fahrenheit to Celsius
+     * @param value The value to be converted
+     * @return The converted value
+     */
     public double fromFtoC(String value) {
         DecimalFormat numberFormat = new DecimalFormat("#.00");
         return Double.parseDouble(numberFormat.format((Double.parseDouble(value) - 32) * 5/9));
     }
 
+    /**
+     * Sets the formula text shown to the user
+     * @param leftNumber The value from the left textField
+     * @param rightNumber The value from the right textField
+     * @param formatUnit Celsius or Fahrenheit
+     */
     public void setFormulaText(String leftNumber, String rightNumber, String formatUnit){
+        // Will always show formula from left textField to right
         if(formatUnit == CELSIUS) {
             formulaUsed.setText("(" + leftNumber + "°F − 32) × 5/9 = " + rightNumber + "°C");
         } else {
@@ -43,12 +60,15 @@ public class Controller implements Initializable, TemperatureConverter {
         }
     }
 
-
+    /**
+     * A method that updates the textFields
+     */
     @FXML
     public void updateTextField(){
         String unit = comboBox.getValue(); // Reading the comboBox value
         String number1 = textField1.getText(); // Reading the textField1 value
         String number2 = textField2.getText(); // Reading the textField2 value
+        // updates opposite value based on which textField is highlighted
         if (textFieldInFocus == 1 ) {
             if(unit.equals(FAHRENHEIT)) {
                 double calculatedValue = fromFtoC(number1);
@@ -75,12 +95,18 @@ public class Controller implements Initializable, TemperatureConverter {
 
     }
 
+    /**
+     * Method that flips text fields when a user changes the temperature in comboBox
+     */
     public void flipTextFields() {
         String originalText1 = textField1.getText();
         textField1.setText(textField2.getText());
         textField2.setText(originalText1);
     }
 
+    /**
+     * Updates left comboBox
+     */
     @FXML
     public void updateComboBox() {
         String unit1 = comboBox.getValue();
@@ -96,7 +122,9 @@ public class Controller implements Initializable, TemperatureConverter {
         }
         flipTextFields();
     }
-
+    /**
+     * Updates right comboBox
+     */
     @FXML
     public void updateComboBox2(){
         String unit2 = comboBox2.getValue();
@@ -117,6 +145,11 @@ public class Controller implements Initializable, TemperatureConverter {
 
     }
 
+    /**
+     * Sets a listener on textFields to determine when they are focused
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         textField1.focusedProperty().addListener((ov, oldV, newV) -> {
