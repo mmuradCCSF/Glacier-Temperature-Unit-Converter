@@ -10,7 +10,7 @@ import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 
-public class Controller implements Initializable {
+public class Controller implements Initializable, TemperatureConverter {
     private int textFieldInFocus = 1;
     final private String FAHRENHEIT = "Fahrenheit";
     final private String CELSIUS = "Celsius";
@@ -26,16 +26,16 @@ public class Controller implements Initializable {
     @FXML
     private ComboBox<String> comboBox2;
 
-    private double fromCtoF(String value) {
+    public double fromCtoF(String value) {
         DecimalFormat numberFormat = new DecimalFormat("#.00");
         return Double.parseDouble(numberFormat.format(Double.parseDouble(value) * 9/5 + 32));
     }
-    private double fromFtoC(String value) {
+    public double fromFtoC(String value) {
         DecimalFormat numberFormat = new DecimalFormat("#.00");
         return Double.parseDouble(numberFormat.format((Double.parseDouble(value) - 32) * 5/9));
     }
 
-    private void setFormulaText(String leftNumber, String rightNumber, String formatUnit){
+    public void setFormulaText(String leftNumber, String rightNumber, String formatUnit){
         if(formatUnit == CELSIUS) {
             formulaUsed.setText("(" + leftNumber + "°F − 32) × 5/9 = " + rightNumber + "°C");
         } else {
@@ -75,7 +75,7 @@ public class Controller implements Initializable {
 
     }
 
-    private void flipTextFields() {
+    public void flipTextFields() {
         String originalText1 = textField1.getText();
         textField1.setText(textField2.getText());
         textField2.setText(originalText1);
