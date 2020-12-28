@@ -1,7 +1,7 @@
 # Glacier-Temperature-Unit-Converter
 <a href="https://ibb.co/QX7xyr3"><img src="https://i.ibb.co/XVfGcSr/temp-converter.jpg" alt="temp-converter" border="0"></a>
 
-This is a temperature unit converter that is an application that allows users to input temperatuers and converts them from Fahrenheit to Celsius and from Celsius to Fahrenheit!
+This is a temperature unit converter that is an application that allows users to input temperatures and converts them from Fahrenheit to Celsius and from Celsius to Fahrenheit!
 
 It also shows the formulas used!
 
